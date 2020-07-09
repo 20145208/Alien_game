@@ -26,3 +26,14 @@ class Bullet(Sprite):
 
     def draw_bullet(self):
         pygame.draw.rect(self.screen, self.color, self.rect)
+
+
+class Big_bullet(Bullet):
+    def __init__(self, ai_settings, screen, ship):
+        super().__init__(ai_settings, screen, ship)
+        self.rect = pygame.Rect(0, 0, ai_settings.big_bullet_width, ai_settings.big_bullet_height)
+        self.rect.centerx = ship.rect.centerx
+        self.rect.top = ship.rect.top
+        self.color = ai_settings.big_bullet_color
+
+
