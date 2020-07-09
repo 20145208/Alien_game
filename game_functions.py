@@ -50,20 +50,29 @@ def check_events(ai_settings, screen, ship, bullets, big_bullets):
             check_keydown_events(event, ai_settings, screen, ship, bullets, big_bullets)
 
 
-def update_bullets(aliens, bullets):
+def update_bullets(ai_settings, screen, ship, aliens, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, True)
 
 
-def update_big_bullets(aliens, big_bullets):
+def update_big_bullets(ai_settings, screen, ship, aliens, big_bullets):
     big_bullets.update()
     for bullet in big_bullets.copy():
         if bullet.rect.bottom <= 0:
             big_bullets.remove(bullet)
-    collisions = pygame.sprite.groupcollide(big_bullets, aliens, False, True)
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, big_bullets, False)
+
+
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, j):
+    collisions = pygame.sprite.groupcollide(bullets, aliens, j, True)
+    if len(aliens) == 0:
+        # for bullet in bullets.copy():
+        #    bullets.remove(bullet)
+        bullets.empty()
+        create_fleet(ai_settings, screen, ship, aliens)
 
 
 def get_number_aliens_x(ai_settings, alien_width):
