@@ -22,6 +22,6 @@ class Settings():
         self.bullets_allowed = 4
         self.big_bullets_allowed = 1
         self.alien_speed_factor = 0.5
-        self.fleet_drop_speed = 50
+        self.fleet_drop_speed = 10
         # fleet_direction=1 right//fleet_direction=-1 left
         self.fleet_direction = 1
