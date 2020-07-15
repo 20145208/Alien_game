@@ -77,25 +77,28 @@ def start_game(ai_settings, screen, stats, ship, aliens, bullets, big_bullets):
     ship.center_ship()
 
 
-
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, True)
+    check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets, True)
 
 
-def update_big_bullets(ai_settings, screen, ship, aliens, big_bullets):
+def update_big_bullets(ai_settings, screen, stats, sb, ship, aliens, big_bullets):
     big_bullets.update()
     for bullet in big_bullets.copy():
         if bullet.rect.bottom <= 0:
             big_bullets.remove(bullet)
-    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, big_bullets, False)
+    check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, big_bullets, False)
 
 
-def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, j):
+def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets, j):
     collisions = pygame.sprite.groupcollide(bullets, aliens, j, True)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += ai_settings.alien_points
+            sb.prep_score()
     if len(aliens) == 0:
         # for bullet in bullets.copy():
         #    bullets.remove(bullet)
