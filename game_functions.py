@@ -70,6 +70,10 @@ def start_game(ai_settings, screen, stats, ship, aliens, bullets, big_bullets, s
     sb.prep_score()
     stats.game_active = True
 
+    sb.prep_score()
+    sb.prep_high_score()
+    sb.prep_level()
+
     aliens.empty()
     bullets.empty()
     big_bullets.empty()
@@ -112,6 +116,10 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         #    bullets.remove(bullet)
         bullets.empty()
         ai_settings.increase_speed()
+
+        stats.level += 1
+        sb.prep_level()
+
         create_fleet(ai_settings, screen, ship, aliens)
 
 
